@@ -11,7 +11,7 @@ export const THEME_SETTINGS_NAMESPACE = 'ui-theme'
 /** Field carrying the selected built-in theme preference. */
 export const THEME_PREFERENCE_FIELD = 'preference'
 
-/** Field carrying the conversation content font size. */
+/** Field carrying the conversation and sidebar font size. */
 export const FONT_SIZE_FIELD = 'fontSize'
 
 /** Theme preference persisted by the product Appearance row. */
@@ -50,7 +50,7 @@ export interface FontSizeSpec {
 }
 
 /**
- * Font sizes by role. `text` is the conversation content size; `code` is the
+ * Font sizes by role. `text` is the conversation and sidebar size; `code` is the
  * code-block size (inline code stays 1px larger); `terminal` is the sidebar
  * terminal cell font size.
  */
@@ -92,7 +92,7 @@ export type FontFamilies = Readonly<Record<FontRole, string>>
 export interface ThemeSettings {
   /** Selected built-in preference. */
   preference: ThemePreference
-  /** Conversation content font size in px (integer within {@link FONT_SIZE_MIN}..{@link FONT_SIZE_MAX}). */
+  /** Conversation and sidebar font size in px (integer within {@link FONT_SIZE_MIN}..{@link FONT_SIZE_MAX}). */
   fontSize: number
   /** Code-block font size in px (integer within the {@link FONT_SIZE_SPECS} `code` range). */
   codeFontSize: number

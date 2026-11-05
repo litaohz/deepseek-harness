@@ -15,7 +15,7 @@
   - button "Light"
   - button "Dark"
   - button "System" [pressed]
-  - text: Font size Only affects conversation content 14
+  - text: Font size Used for conversation content and the left sidebar 14
   - button "Increase font size"
   - button "Decrease font size"
   - text: px

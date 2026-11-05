@@ -146,6 +146,15 @@ it.each([
           }
         })
         const defaults = { text: 14, code: 11, terminal: 13 }
+        const readSidebarTypography = () => page.getByRole('treeitem', { selected: true }).evaluate((row) => {
+          const title = row.children[1]!
+          const style = getComputedStyle(title)
+          return {
+            fontSize: Number.parseFloat(style.fontSize),
+            lineHeight: Number.parseFloat(style.lineHeight),
+            rowHeight: Math.round(row.getBoundingClientRect().height),
+          }
+        })
         const patchPath = join(scaffold.harnessHome, 'profiles', 'scaffold', 'cordis.patch.yml')
         const stepFontSizes = async (key: string, sizes: Awaited<ReturnType<typeof readFontSizes>>): Promise<void> => {
           const before = fontMutations.length
@@ -163,16 +172,21 @@ it.each([
           const fields = [['fontSize', sizes.text], ['codeFontSize', sizes.code], ['terminalFontSize', sizes.terminal]] as const
           expect(fontMutations.slice(before)).toEqual([fields.map(([field, value]) => ({ op: 'set', path: [field], value }))])
           await expect.poll(readFontSizes).toEqual(sizes)
+          await expect.poll(readSidebarTypography).toEqual({
+            fontSize: sizes.text, lineHeight: sizes.text + 6, rowHeight: sizes.text + 18,
+          })
           for (const [field, value] of fields) {
             await expect.poll(() => readFile(patchPath, 'utf8')).toContain(`${field}: ${value}`)
           }
         }
         const initial = await readFontSizes()
+        const sidebarInitial = await readSidebarTypography()
         expect(initial).toEqual(defaults)
         await stepFontSizes(`${primary}+Equal`, { text: 15, code: 12, terminal: 14 })
         const afterEqual = await readFontSizes()
         await stepFontSizes(`${primary}+Shift+Equal`, { text: 16, code: 13, terminal: 15 })
         const afterPlus = await readFontSizes()
+        const sidebarAfterPlus = await readSidebarTypography()
         await stepFontSizes(`${primary}+Minus`, { text: 15, code: 12, terminal: 14 })
         const afterMinus = await readFontSizes()
         const warningStart = console.warnings.length
@@ -181,6 +195,7 @@ it.each([
         await page.getByText('DONE', { exact: true }).waitFor()
         await expect.poll(readFontSizes).toEqual(afterMinus)
         const afterReload = await readFontSizes()
+        const sidebarAfterReload = await readSidebarTypography()
         await composer.focus()
         await stepFontSizes(`${primary}+Minus`, defaults)
         const restored = await readFontSizes()
@@ -245,7 +260,8 @@ it.each([
           .filter(label => label === 'Increase font size' || label === 'Decrease font size'))
         expect(referenceOrder).toEqual(['Increase font size', 'Decrease font size'])
         await compareOrRefreshGolden(join(expected, 'font-sizes.expected.md'),
-          `# Font sizes\n\n${JSON.stringify({ initial, afterEqual, afterPlus, afterMinus, afterReload, restored, referenceOrder }, null, 2)}`, mode)
+          `# Font sizes\n\n${JSON.stringify({ initial, afterEqual, afterPlus, afterMinus, afterReload, restored,
+            sidebar: { initial: sidebarInitial, afterPlus: sidebarAfterPlus, afterReload: sidebarAfterReload }, referenceOrder }, null, 2)}`, mode)
         expect(await dialog.getByRole('searchbox').evaluate(node => node === document.activeElement)).toBe(true)
         expect(await automaticFocusStyle()).toEqual(noFocusRing)
         const referenceShadow = await dialog.evaluate(node => getComputedStyle(node).boxShadow)

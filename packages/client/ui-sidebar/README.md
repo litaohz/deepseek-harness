@@ -27,7 +27,7 @@ The dsh web client sidebar lets users recognize the active build, start a new se
 <a id="use-this-package"></a>
 ## Use this package
 
-The sidebar is the navigation shell: users see the brand, start new sessions, collapse the rail, and reach Settings. Feature plugins fill its seats — ui-workspace fills `sidebar.workspaces`, ui-settings registers the trigger row and settings panel at `sidebar.settings`.
+The sidebar is the navigation shell: users see the brand, start new sessions, collapse the rail, and reach Settings. Feature plugins fill its seats — ui-workspace fills `sidebar.workspaces`, ui-settings registers the trigger row and settings panel at `sidebar.settings`. Navigation labels follow the shared [Font size setting](../ui-theme/README.md); collapsed icon controls retain their fixed dimensions.
 
 Below 768px, without a native Windows caption, the sidebar keeps its expanded content mounted inside the frame's drawer. The drawer initially focuses its collapse toggle, traps keyboard focus, closes with Escape or a mask press, and restores the invoking control unless a foreground dialog remains open. When an open drawer becomes a collapsed rail, focus remaining in its wide content transfers to the rail toggle before that content unmounts. When a collapsed rail becomes a hidden drawer, the sidebar transfers its own focus to its header opener, preserving focus elsewhere and in foreground dialogs. This includes focus in a global menu identified by the original sidebar control's `aria-controls`. Returning from a closed drawer renders the compact rail immediately, without a crossfade. Its toggle tooltip renders outside the drawer. Opening it does not resize the conversation.
 

@@ -31,6 +31,23 @@
     "code": 11,
     "terminal": 13
   },
+  "sidebar": {
+    "initial": {
+      "fontSize": 14,
+      "lineHeight": 20,
+      "rowHeight": 32
+    },
+    "afterPlus": {
+      "fontSize": 16,
+      "lineHeight": 22,
+      "rowHeight": 34
+    },
+    "afterReload": {
+      "fontSize": 15,
+      "lineHeight": 21,
+      "rowHeight": 33
+    }
+  },
   "referenceOrder": [
     "Increase font size",
     "Decrease font size"

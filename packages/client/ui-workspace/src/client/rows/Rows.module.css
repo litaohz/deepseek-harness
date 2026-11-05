@@ -34,7 +34,7 @@
   flex-direction: column;
   align-items: stretch;
   width: 100%;
-  min-height: 48px;
+  min-height: calc(48px + 2 * max(0px, var(--dsh-content-font-delta, 0px)));
   box-sizing: border-box;
   border: none;
   border-radius: var(--dsw-radius-lg);
@@ -70,8 +70,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: var(--dsh-content-font-size, 14px);
+  line-height: calc(20px + var(--dsh-content-font-delta, 0px));
 }
 
 .searchResultMeta {
@@ -79,7 +79,7 @@
   align-items: center;
   gap: 6px;
   min-width: 0;
-  margin-left: calc(16px + var(--dsh-sidebar-label-gap));
+  margin-left: calc(16px + max(0px, var(--dsh-content-font-delta, 0px)) + var(--dsh-sidebar-label-gap));
 }
 
 .searchResultWorkspace,
@@ -87,8 +87,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 12px;
-  line-height: 17px;
+  font-size: max(10px, calc(12px + var(--dsh-content-font-delta, 0px)));
+  line-height: max(15px, calc(17px + var(--dsh-content-font-delta, 0px)));
 }
 
 .searchResultWorkspace {
@@ -110,18 +110,18 @@
 
 /* Compact one-line Workspace row after removing the session-count subtitle. */
 .projectRow {
-  height: 34px;
+  height: calc(34px + max(0px, var(--dsh-content-font-delta, 0px)));
   align-items: center;
   box-sizing: border-box;
 }
 
 .projectRow .rowActions {
-  height: 20px;
+  height: calc(20px + max(0px, var(--dsh-content-font-delta, 0px)));
 }
 
 /* Session titles share the workspace icon slot and compact label gap. */
 .sessionRow {
-  height: 32px;
+  height: calc(32px + max(0px, var(--dsh-content-font-delta, 0px)));
   gap: 0;
 }
 
@@ -131,12 +131,17 @@
 
 .slot {
   flex: none;
-  width: 16px;
-  height: 20px;
+  width: calc(16px + max(0px, var(--dsh-content-font-delta, 0px)));
+  height: calc(20px + max(0px, var(--dsh-content-font-delta, 0px)));
   display: inline-flex;
   align-items: center;
   justify-content: center;
   color: var(--dsw-alias-label-tertiary);
+}
+
+.projectRow .slot svg {
+  width: calc(16px + max(0px, var(--dsh-content-font-delta, 0px)));
+  height: calc(16px + max(0px, var(--dsh-content-font-delta, 0px)));
 }
 
 .visuallyHidden {
@@ -183,14 +188,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: var(--dsh-content-font-size, 14px);
+  line-height: calc(20px + var(--dsh-content-font-delta, 0px));
 }
 
 .renameInput {
   min-width: 0;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: var(--dsh-content-font-size, 14px);
+  line-height: calc(20px + var(--dsh-content-font-delta, 0px));
   padding: 0 2px;
   border: 0.5px solid var(--dsw-alias-border-l4);
   border-radius: var(--dsw-radius-sm);
@@ -230,15 +235,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: max(10px, calc(12px + var(--dsh-content-font-delta, 0px)));
+  line-height: calc(20px + var(--dsh-content-font-delta, 0px));
   color: var(--dsw-alias-label-tertiary);
 }
 
 .time {
   flex: none;
-  font-size: 10px;
-  line-height: 16px;
+  font-size: max(10px, calc(10px + var(--dsh-content-font-delta, 0px)));
+  line-height: calc(16px + max(0px, var(--dsh-content-font-delta, 0px)));
   color: var(--dsw-alias-label-tertiary);
   margin-inline-end: -1px;
 }

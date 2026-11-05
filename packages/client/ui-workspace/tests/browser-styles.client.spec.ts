@@ -104,19 +104,19 @@ describe('WorkspaceBrowser.module.css list', () => {
     }
   })
 
-  it('keeps the compact fade, overflow control, search field, and row heights', () => {
+  it('grows search and row heights with larger text while retaining compact minimums', () => {
     expect(declarations('.fade')?.get('height')).toBe('24px')
-    expect(declarations('.sessionOverflowButton')?.get('height')).toBe('28px')
-    expect(declarations('.searchExpanded')?.get('height')).toBe('32px')
-    expect(rowDeclarations('.projectRow')?.get('height')).toBe('34px')
-    expect(rowDeclarations('.sessionRow')?.get('height')).toBe('32px')
+    expect(declarations('.sessionOverflowButton')?.get('height')).toBe('calc(28px + max(0px, var(--dsh-content-font-delta, 0px)))')
+    expect(declarations('.searchExpanded')?.get('height')).toBe('calc(32px + max(0px, var(--dsh-content-font-delta, 0px)))')
+    expect(rowDeclarations('.projectRow')?.get('height')).toBe('calc(34px + max(0px, var(--dsh-content-font-delta, 0px)))')
+    expect(rowDeclarations('.sessionRow')?.get('height')).toBe('calc(32px + max(0px, var(--dsh-content-font-delta, 0px)))')
     // One leading status cell for every session row, grouped or flat: the cell
     // hosts either the row's status dot or the leading seat, and it reserves its
     // own box, so the title's one shared margin below needs no per-view override.
-    expect(rowDeclarations('.slot')?.get('width')).toBe('16px')
-    expect(rowDeclarations('.slot')?.get('height')).toBe('20px')
+    expect(rowDeclarations('.slot')?.get('width')).toBe('calc(16px + max(0px, var(--dsh-content-font-delta, 0px)))')
+    expect(rowDeclarations('.slot')?.get('height')).toBe('calc(20px + max(0px, var(--dsh-content-font-delta, 0px)))')
     expect(rowDeclarations('.sessionRow .title')?.get('margin')).toBe('0 6px 0 var(--dsh-sidebar-label-gap)')
-    expect(rowDeclarations('.searchResultRow')?.get('min-height')).toBe('48px')
+    expect(rowDeclarations('.searchResultRow')?.get('min-height')).toBe('calc(48px + 2 * max(0px, var(--dsh-content-font-delta, 0px)))')
     expect(rowDeclarations('.searchResultTitle')?.get('margin')).toBe('0 var(--dsh-sidebar-label-gap)')
     expect(rowDeclarations('.sessionRow.selected')?.get('background-color'))
       .toBe('var(--dsw-alias-interactive-bg-hover)')

@@ -29,6 +29,7 @@ describe('SidebarRoot.module.css', () => {
   it('uses a compact expanded navigation gap without shrinking the collapsed rail spacing', () => {
     expect(declarations('.panelList')?.get('gap')).toBe('2px')
     expect(declarations('.collapsed .panelList')?.get('gap')).toBe('12px')
+    expect(declarations('.collapsed .panelRow')?.get('min-height')).toBe('36px')
   })
 
   it('shares and cancels the wide shell trailing padding structurally', () => {
